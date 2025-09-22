@@ -1,34 +1,82 @@
 
+import { useReducer, useEffect } from 'react';
+import { pomodoroReducer, initialState } from '../hooks/Pomodoro.timers';
+
 import {
   Edit as EditIcon,
 } from '@mui/icons-material';
 
+
 const Pomodoro = () => {
+  const [state, dispatch] = useReducer(pomodoroReducer, initialState);
+
+  useEffect(() => {
+
+    let timer;
+    if(state.isRunning & state.time > 0) {
+      timer = setInterval(() => {
+        dispatch({type: "TICK"});
+      }, 1000);
+    }
+    return () => clearInterval(timer);
+  }, [state.isRunning, state.time]);
+
   return (
-    <main className="flex min-h-screen min-w-screen bg-primary">
-      <div className="container flex">
-        {/* Streaks + Cycles Column */}
-          <div className="">
-            
-          </div>
+    <main className="flex min-h-svh w-90% bg-primary">
+        <div className="flex flex-col md:flex-row flex-1 gap-4">
+
+        {/* AI reminder */}
+        <div className="flex-1 border-red-500 border-2">
+          {/* content */}
+        </div>
+        
         {/* Pomodoro + Tasks Column */}
-          <div className="">
-            <header>
-              <h1>Customize your own Pomodoro!</h1>
-              button
+        <div className="flex-3 border-red-500 border-2 justify-center content-start max-w-3xl">
+
+          <div className='container border-3 rounded-2xl border-shadow bg-secondary mt-24'>
+            <header className="flex justify-between items-center p-8">
+              <h1 className="text-lg font-bold text-shadow">Customize your own Pomodoro!</h1>
+              <button className="cursor-pointer">
+                <EditIcon />
+              </button>
             </header>
 
             {/* Timer */}
-            <div>
-            
+            <div className="mx-16 p-12 flex justify-center font-sans font-bold text-xxl">
+              {/* Timer content */}
+              <span c>
+                {Math.floor(state.time / 60)}:{String(state.time % 60).padStart(2, "0")}
+              </span>
             </div>
+
             {/* Buttons */}
-            <div></div>
+            <div className="flex justify-center gap-8 p-4">
+              <button 
+              onClick={() => dispatch({type: "START"})}
+              className="px-4 py-2 bg-shadow text-white rounded font-medium cursor-pointer">Start</button>
+              <button 
+              onClick={() => dispatch({type: "PAUSE"})}
+              className="px-4 py-2 bg-shadow text-white rounded font-medium cursor-pointer">Pause</button>
+              <button 
+              onClick={() => dispatch({type: "REST"})}
+              className="px-4 py-2 bg-shadow text-white rounded font-medium cursor-pointer">Rest</button>
+              <button 
+              onClick={() => dispatch({type: "RESET"})}
+              className="px-4 py-2 bg-shadow text-white rounded font-medium cursor-pointer">Reset</button>
+            </div>
           </div>
-        {/* AI reminder */}
-          <div className="">
-            
           </div>
+          
+
+        {/* Streaks + Cycles Column */}
+        <div className="flex-1 border-red-500 border-2 justify-center">
+          {/* content */}
+          <div className='container m-auto p-4 border-3 border-shadow bg-secondary rounded w-64  mt-24 ml-64'>
+            <p>Total Streak: </p> {/* streak num */}
+            <p>Total Daily Cycles :</p> {/* Pomodoro Cycle Count */}
+          </div>
+        </div>
+
       </div>
     </main>
   )
