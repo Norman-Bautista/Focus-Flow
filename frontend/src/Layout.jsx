@@ -1,15 +1,12 @@
 import {Outlet} from 'react-router-dom';
 import Navbar from './shared/components/Navbar';
-import '@fontsource/roboto/300.css';
-import '@fontsource/roboto/400.css';
-import '@fontsource/roboto/500.css';
-import '@fontsource/roboto/700.css';
+
 
 const Layout = () => {
   return (
-    <div>
+    <div className="min-h-screen flex flex-col bg-primary" >
       <Navbar />
-      <main>
+      <main className='flex-1 bg-primary p-4'>
         <Outlet />
       </main>
     </div>

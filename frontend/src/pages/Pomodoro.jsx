@@ -5,6 +5,8 @@ import { pomodoroReducer, initialState } from '../hooks/Pomodoro.timers';
 import {
   Edit as EditIcon,
 } from '@mui/icons-material';
+import { BotMessageSquare } from 'lucide-react';
+
 
 
 const Pomodoro = () => {
@@ -26,16 +28,19 @@ const Pomodoro = () => {
         <div className="flex flex-col md:flex-row flex-1 gap-4">
 
         {/* AI reminder */}
-        <div className="flex-1 border-red-500 border-2">
+        <div className="flex-1 content-end">
           {/* content */}
+          <div className='bg-shadow w-16 h-16 p-4 mx-12 my-16 rounded-4xl flex justify-center items-center'>
+            <BotMessageSquare className='text-white flex justify-center items-center' />
+          </div>
         </div>
         
         {/* Pomodoro + Tasks Column */}
-        <div className="flex-3 border-red-500 border-2 justify-center content-start max-w-3xl">
+        <div className="flex-3 justify-center content-start max-w-3xl">
 
           <div className='container border-3 rounded-2xl border-shadow bg-secondary mt-24'>
             <header className="flex justify-between items-center p-8">
-              <h1 className="text-lg font-bold text-shadow">Customize your own Pomodoro!</h1>
+              <h1 className="text-lg font-sans font-bold text-shadow">Customize your own Pomodoro!</h1>
               <button className="cursor-pointer">
                 <EditIcon />
               </button>
@@ -69,14 +74,13 @@ const Pomodoro = () => {
           
 
         {/* Streaks + Cycles Column */}
-        <div className="flex-1 border-red-500 border-2 justify-center">
+        <div className="flex-1 justify-center">
           {/* content */}
-          <div className='container m-auto p-4 border-3 border-shadow bg-secondary rounded w-64  mt-24 ml-64'>
-            <p>Total Streak: </p> {/* streak num */}
-            <p>Total Daily Cycles :</p> {/* Pomodoro Cycle Count */}
+          <div className='container m-auto p-4 border-3 border-shadow bg-secondary rounded-2xl w-78  mt-24 '>
+            <p className='font-sans'>Total Streak: </p> {/* streak num */}
+            <p className='font-sans'>Total Daily Cycles :</p> {/* Pomodoro Cycle Count */}
           </div>
         </div>
-
       </div>
     </main>
   )

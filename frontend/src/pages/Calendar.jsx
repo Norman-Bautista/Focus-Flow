@@ -1,10 +1,86 @@
+import React, { useState } from 'react';
+import { Box, Paper, IconButton, Typography } from '@mui/material';
+import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
+import ChevronRightIcon from '@mui/icons-material/ChevronRight';
+import LocalFireDepartmentIcon from '@mui/icons-material/LocalFireDepartment';
+import AcUnitIcon from '@mui/icons-material/AcUnit';
 
-import React from 'react'
+// Use a simple function to generate a mock month for the calendar
+// In a real application, you would use a library like `date-fns` or `moment.js`
+const generateMonth = (year, month) => {
+  const daysInMonth = new Date(year, month + 1, 0).getDate();
+  const firstDayOfWeek = new Date(year, month, 1).getDay(); // 0 = Sunday, 1 = Monday...
+  const days = [];
+
+  // Add blank days for the start of the month
+  for (let i = 0; i < firstDayOfWeek; i++) {
+    days.push(null);
+  }
+
+  // Add the days of the month
+  for (let i = 1; i <= daysInMonth; i++) {
+    days.push(i);
+  }
+
+  return days;
+};
+
+// Mock data for streaks. In a real app, this would come from your backend.
+// Key is the day of the month, value is true (completed) or false (not completed)
+const mockStreaks = {
+  1: true,
+  2: true,
+  3: false,
+  4: true,
+  5: true,
+  6: true,
+  7: true,
+  8: false,
+  9: true,
+  10: true,
+  11: true,
+  12: false,
+  13: true,
+  14: true,
+  15: true,
+  16: false,
+  17: true,
+  18: true,
+  19: true,
+  20: true,
+  21: false,
+  22: true,
+  23: true,
+  24: true,
+  25: false,
+  26: true,
+  27: true,
+  28: true,
+  29: false,
+  30: true,
+};
 
 const Calendar = () => {
-  return (
-    <div>Calendar</div>
-  )
-}
+  const [currentDate, setCurrentDate] = useState(new Date());
+  const month = currentDate.getMonth();
+  const year = currentDate.getFullYear();
+  const daysInMonth = generateMonth(year, month);
 
-export default Calendar
+  const goToPreviousMonth = () => {
+    setCurrentDate(new Date(year, month - 1, 1));
+  };
+
+  const goToNextMonth = () => {
+    setCurrentDate(new Date(year, month + 1, 1));
+  };
+
+  const dayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+
+  return (
+    <main>
+      
+    </main>
+  );
+};
+
+export default Calendar;
