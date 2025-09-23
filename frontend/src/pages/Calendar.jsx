@@ -4,14 +4,24 @@ import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import LocalFireDepartmentIcon from '@mui/icons-material/LocalFireDepartment';
 import AcUnitIcon from '@mui/icons-material/AcUnit';
+import dayjs from "dayjs";
+import utc from "dayjs/plugin/utc";
+import timezone from "dayjs/plugin/timezone";
 
-// Use a simple function to generate a mock month for the calendar
-// In a real application, you would use a library like `date-fns` or `moment.js`
+dayjs.extend(utc);
+dayjs.extend(timezone);
+
+/* 
+we used day.js functions such as year, month and date
+then first call the day.js before its functions to initiate
+*/
+
 const generateMonth = (year, month) => {
-  const daysInMonth = new Date(year, month + 1, 0).getDate();
-  const firstDayOfWeek = new Date(year, month, 1).getDay(); // 0 = Sunday, 1 = Monday...
-  const days = [];
+  const firstDayOfMonth = dayjs().year(year).month(month).date(1);
+  const daysInMonth = firstDayOfMonth.daysInMonth();
+  const firstDayOfWeek = firstDayOfMonth.day(); 
 
+  const days = [];
   // Add blank days for the start of the month
   for (let i = 0; i < firstDayOfWeek; i++) {
     days.push(null);
@@ -77,8 +87,33 @@ const Calendar = () => {
   const dayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
   return (
-    <main>
-      
+    <main className='flex flex-col'>
+      {/* Calendar */}
+      <Box className="bg-shadow">
+        <header>
+          <IconButton onClick={goToPreviousMonth}>
+            <Typography>
+              <ChevronLeftIcon />
+            </Typography>
+          </IconButton>
+
+          {currentDate.format}
+          
+          <IconButton>
+            <Typography>
+              <ChevronRightIcon />
+            </Typography>
+          </IconButton>
+        </header>
+        
+      </Box>
+
+      {/* Monthly and Weekly Stat */}
+      <Box>
+        <Paper className='outline-2 outline-shadow'>
+          asdasd
+        </Paper>
+      </Box>
     </main>
   );
 };

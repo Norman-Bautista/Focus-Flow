@@ -38,7 +38,7 @@ const Pomodoro = () => {
         {/* Pomodoro + Tasks Column */}
         <div className="flex-3 justify-center content-start max-w-3xl">
 
-          <div className='container border-3 rounded-2xl border-shadow bg-secondary mt-24'>
+          <div className='container border-3 rounded-2xl border-shadow bg-secondary mt-16'>
             <header className="flex justify-between items-center p-8">
               <h1 className="text-lg font-sans font-bold text-shadow">Customize your own Pomodoro!</h1>
               <button className="cursor-pointer">
