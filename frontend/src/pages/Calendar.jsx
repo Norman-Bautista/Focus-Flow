@@ -1,19 +1,27 @@
 import React, { useState } from 'react';
-import { Box, Paper, IconButton, Typography } from '@mui/material';
+import { Box, Paper, IconButton, Typography, Card } from '@mui/material';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import LocalFireDepartmentIcon from '@mui/icons-material/LocalFireDepartment';
 import AcUnitIcon from '@mui/icons-material/AcUnit';
 import dayjs from "dayjs";
 import utc from "dayjs/plugin/utc";
-import timezone from "dayjs/plugin/timezone";
 
 dayjs.extend(utc);
-dayjs.extend(timezone);
+dayjs().format();
 
 /* 
 we used day.js functions such as year, month and date
 then first call the day.js before its functions to initiate
+
+we use dayjs() to instantiate many date object format like year, month, date 
+in the example below i used dayjs(). then chain year().month().data() to
+setn our year month date format
+
+then made a variable to hold first days of month value 
+and chain the daysInMonth() to generate days in a month
+then firstdayOfWeek value is,  the first day of month.day()
+in which generates the 7 days in a week
 */
 
 const generateMonth = (year, month) => {
@@ -71,47 +79,92 @@ const mockStreaks = {
 };
 
 const Calendar = () => {
-  const [currentDate, setCurrentDate] = useState(new Date());
-  const month = currentDate.getMonth();
-  const year = currentDate.getFullYear();
+  const [currentDate, setCurrentDate] = useState(dayjs());
+  const [streakCount, setStreakCount] = useState(0);
+  const month = currentDate.month();
+  const year = currentDate.year();
   const daysInMonth = generateMonth(year, month);
 
   const goToPreviousMonth = () => {
-    setCurrentDate(new Date(year, month - 1, 1));
+    setCurrentDate(currentDate.subtract(1, "month"));
   };
 
   const goToNextMonth = () => {
-    setCurrentDate(new Date(year, month + 1, 1));
+    setCurrentDate(currentDate.add(1, "month"));
   };
+
+  const monthlyStreaks = Object.entries(mockStreaks).filter(([day, done]) => {
+    const date = dayjs(`${year}-${month + 1}-${day}`, "YYYY-M-D");
+    return done && date.month() === month && date.year() === year;
+  }).length;
 
   const dayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
   return (
-    <main className='flex flex-col'>
+    <main className='flex flex-row gap-4 justify-center'>
       {/* Calendar */}
-      <Box className="bg-shadow">
-        <header>
+      <Box className="bg-secondary outline-3 outline-shadow rounded-2xl w-6xl p-4 mt-4">
+        <header className='flex justify-between'>
           <IconButton onClick={goToPreviousMonth}>
-            <Typography>
               <ChevronLeftIcon />
-            </Typography>
           </IconButton>
 
-          {currentDate.format}
-          
-          <IconButton>
-            <Typography>
+          <Typography variant='h6' className='font-sans font-semibold'>
+            {currentDate.format('MMMM YYYY')}
+          </Typography>
+
+          <IconButton onClick={goToNextMonth}>
               <ChevronRightIcon />
-            </Typography>
           </IconButton>
+
         </header>
+
+        <div className="grid grid-cols-7 ">
+          {dayNames.map((day) =>(
+            <span
+              key = {day}
+              className='mt-8  text-md font-sans font-bold text-center uppercase tracking-wide text-shadow'
+            >
+              {day}
+            </span> 
+          ))}
+        </div>
+
+        <div className="grid grid-cols-7 gap-2">
+          {daysInMonth.map((day, index) => {
+            const isStreak = day && mockStreaks[day]; // check if this day has a streak
+
+            return (
+              <div
+                key={index}
+                className="ml-10 h-28 w-16 flex flex-col items-center justify-center"
+              >
+                <span>{day ? day : ""}</span>
+                {isStreak ? (
+                  <LocalFireDepartmentIcon className="text-red-500 text-sm" />
+                ) : (
+                  day && <AcUnitIcon className="text-blue-400 text-sm" />
+                )}
+              </div>
+            );
+          })}
+        </div>
         
       </Box>
 
       {/* Monthly and Weekly Stat */}
-      <Box>
-        <Paper className='outline-2 outline-shadow'>
-          asdasd
+      <Box className ='flex flex-col gap-12 mt-4 w-90'>
+        <Paper className='outline-2 outline-shadow !bg-accent p-4 flex flex-col gap-8'>
+          <p className='font-sans font-medium text-shadow '>Monthly Report:</p>
+          <p className='font-sans font-medium text-shadow '>Your Total Monthly Streaks: {monthlyStreaks} </p>
+          <p className='font-sans font-medium text-shadow'>Your Total Pomodoro Cycles: 64 </p>
+        </Paper>
+        
+        <Paper className='outline-2 outline-shadow !bg-accent p-4 flex flex-col gap-8' >
+          Some Ai Insights and Message
+          <p className='font-sans font-medium text-shadow'>You were most active in weekdays</p>
+          <p className='font-sans font-medium text-shadow'>Tuesdays, and Thursdays are your Productive Days!</p>
+          <p className='font-sans font-medium text-shadow'>With total time of 4 hours each and 9 Cycles !</p>
         </Paper>
       </Box>
     </main>
