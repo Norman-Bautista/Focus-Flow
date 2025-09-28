@@ -1,114 +1,97 @@
-import Chart from 'react-apexcharts';
 import {
-  Box, Card, Paper, Grid
+  Box,
+  Grid,
+  Paper,
 } from '@mui/material';
-import {styled} from '@mui/material/styles'
+import { styled } from '@mui/material/styles';
+import MonthlyChart from '../SampleData/MonthlyChart.jsx';
+import SessionChart from '../SampleData/SessionChart.jsx';
+import DayChart from '../SampleData/DayChart.jsx';
 
-const monthlyData = [
-  {month: "m1", totalCycle: 43, totalStreak: 14},
-  {month: "m2", totalCycle: 29, totalStreak: 22},
-  {month: "m3", totalCycle: 32, totalStreak: 30},
-  {month: "m4", totalCycle: 17, totalStreak: 9},
-];
-
-
-const chartOptions = {
-  chart: {
-    type: "line",
-    toolbar: { show: false },
-  },
-  stroke: {
-    curve: "straight",
-  },
-  xaxis: {
-    categories: monthlyData.map((d) => d.month),
-  },
-};
-
-const chartSeries = [
-  {
-    name: "Total Cycles",
-    data: monthlyData.map((d) => d.totalCycle),
-  },
-  {
-    name: "Total Streaks",
-    data: monthlyData.map((d) => d.totalStreak),
-  },
-];
+const Item = styled(Paper)(({ theme }) => ({
+  backgroundColor: "#D6EFC7",
+  ...theme.typography.body2,
+  padding: theme.spacing(2),
+  textAlign: 'center',
+  borderRadius: "1rem",
+  color: (theme.vars ?? theme).palette.text.primary,
+  ...theme.applyStyles('dark', {
+    backgroundColor: '#1A2027',
+  }),
+}));
 
 const Insights = () => {
-
-  const Item = styled(Paper)(({theme})=> ({
-    backgroundColor: "#D6EFC7",
-    ...theme.typography.body2,
-    padding: theme.spacing(1),
-    textAlign: 'center',
-    color: (theme.vars ?? theme).palette.text.primary,
-    ...theme.applyStyles('dark', {
-      backgroundColor: '#1A2027',
-  }),
-  }));
-
   return (
-    <main className='flex flex-row gap-4 justify-center'>
-      <Box>
-        <Grid container rowSpacing={1} columnSpacing={1}>
-          {/* Monthly Focus Snapshot (changable to weekly and quarterly, premium for 1yr stat*/}
-          <Grid>
+    <main className="min-h-screen px-4 pt-4">
+        <Grid container spacing={2}>
+          {/* 📊 Monthly Focus Snapshot - Large Tile */}
+          <Grid item size={8} xs={12} md={8} lg={8}>
             <Item>
-              <header>
-                <p>Monthly Focus Snapshot</p>
+              <header className="mb-4">
+                <p className="font-sans font-semibold text-shadow text-lg">
+                  Monthly Focus Snapshot
+                </p>
               </header>
-              {/* Chart */}
-              <div>
-                <Chart
-                  options={chartOptions}
-                  series={chartSeries}
-                  type="line"
-                  height={300}
-                />
-
-                
-              </div>
-
-              {/* Time-period btns */}
-              <div>
-
-              </div>
+              <MonthlyChart />
             </Item>
           </Grid>
 
-          {/* Consistency Rate and Consecutive Streak (not the total) */}
-          <Grid>
+          {/* 🔥 Consistency & Streak */}
+          <Grid item size={4} xs={12} md={4} lg={4}>
+            <Item className="flex flex-col items-center gap-2">
+              <header>
+                <p className="font-sans font-semibold text-shadow">
+                  Consistency Rate
+                </p>
+              </header>
+              <h1 className="font-sans font-bold text-3xl text-shadow">88%</h1>
+              <p className="font-sans text-shadow">14-day streak</p>
+            </Item>
+          </Grid>
+          
+          {/* 🎯 Pomodoro Effectiveness */}
+          <Grid item xs={12} md={6} lg={4}>
             <Item>
-              asdasdsadasdas
+              <header className="mb-2">
+                <p className="font-sans font-semibold text-shadow">
+                  Pomodoro Effectiveness
+                </p>
+              </header>
+              <SessionChart />
+            </Item>
+          </Grid>
+          
+
+          {/* 📆 Most Productive Day */}
+          <Grid item xs={12} sm={6} lg={4}>
+            <Item>
+              <header className="mb-2">
+                <p className="font-sans font-semibold text-shadow">
+                  Most Productive Day
+                </p>
+              </header>
+              <DayChart />
             </Item>
           </Grid>
 
-          {/* Pomodoro Session Effectiveness */}
-          <Grid>
+          {/* 🤖 AI Insights */}
+          <Grid item xs={12} md={12} lg={8}>
             <Item>
-              asdasdsadasdas
-            </Item>
-          </Grid>
-
-          {/* Most Productive Day of Week */}
-          <Grid>
-            <Item>
-              asdasdsadasdas
-            </Item>
-          </Grid>
-
-          {/* AI insights summarization */}
-          <Grid>
-            <Item>
-              asdasdsadasdas
+              <header className="mb-2">
+                <p className="text-xl text-shadow font-sans font-semibold">
+                  Flow AI Summary
+                </p>
+              </header>
+              <p>
+                You’re most consistent mid-week, averaging 12 cycles on Wed/Thu. 
+                Friday productivity drops by 25%. Your best rhythm is 25min sessions. 
+                Keep streaking! 🔥
+              </p>
             </Item>
           </Grid>
         </Grid>
-      </Box>
     </main>
-  )
-}
+  );
+};
 
-export default Insights
+export default Insights;
