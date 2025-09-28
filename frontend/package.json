@@ -16,10 +16,12 @@
     "@mui/icons-material": "^7.3.2",
     "@mui/material": "^7.3.2",
     "@tailwindcss/vite": "^4.1.13",
+    "apexcharts": "^5.3.5",
     "clsx": "^2.1.1",
     "dayjs": "^1.11.18",
     "lucide-react": "^0.544.0",
     "react": "^19.1.1",
+    "react-apexcharts": "^1.7.0",
     "react-dom": "^19.1.1",
     "react-router-dom": "^7.9.1",
     "tailwindcss": "^4.1.13"

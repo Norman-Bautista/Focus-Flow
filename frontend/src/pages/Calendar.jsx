@@ -109,7 +109,7 @@ const Calendar = () => {
               <ChevronLeftIcon />
           </IconButton>
 
-          <Typography variant='h6' className='font-sans font-semibold'>
+          <Typography variant='h6' className='font-bold'>
             {currentDate.format('MMMM YYYY')}
           </Typography>
 
@@ -123,7 +123,7 @@ const Calendar = () => {
           {dayNames.map((day) =>(
             <span
               key = {day}
-              className='mt-8  text-md font-sans font-bold text-center uppercase tracking-wide text-shadow'
+              className='mt-4  text-md font-sans font-bold text-center uppercase tracking-wide text-shadow'
             >
               {day}
             </span> 
@@ -158,13 +158,6 @@ const Calendar = () => {
           <p className='font-sans font-medium text-shadow '>Monthly Report:</p>
           <p className='font-sans font-medium text-shadow '>Your Total Monthly Streaks: {monthlyStreaks} </p>
           <p className='font-sans font-medium text-shadow'>Your Total Pomodoro Cycles: 64 </p>
-        </Paper>
-        
-        <Paper className='outline-2 outline-shadow !bg-accent p-4 flex flex-col gap-8' >
-          Some Ai Insights and Message
-          <p className='font-sans font-medium text-shadow'>You were most active in weekdays</p>
-          <p className='font-sans font-medium text-shadow'>Tuesdays, and Thursdays are your Productive Days!</p>
-          <p className='font-sans font-medium text-shadow'>With total time of 4 hours each and 9 Cycles !</p>
         </Paper>
       </Box>
     </main>
