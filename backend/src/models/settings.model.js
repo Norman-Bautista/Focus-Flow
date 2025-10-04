@@ -1,5 +1,5 @@
 
-import mongoose from "mongoose";
+import mongoose, { mongo } from "mongoose";
 
 const setting_Schema = new mongoose.Schema({
   user: {
@@ -28,23 +28,10 @@ const setting_Schema = new mongoose.Schema({
   setCycle_Before_Longbreak: {
     type: Number,
   }
-});
+}, {timestamps: true});
 
 
+const Settings = mongoose.model('Settings', setting_Schema);
 
+export default Settings;
 
-// pomodoro: {
-//     focusDuration: {
-//       type: Number,
-//       default: 25,
-//     },
-//     restDuration: {
-//       type: Number,
-//       default: 5,
-//     },
-//     longBreakDuration: {
-//       type: Number,
-//       default: 15,
-//     }
-    
-//   }
