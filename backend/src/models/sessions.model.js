@@ -10,12 +10,15 @@ const session_Schema = new mongoose.Schema({
     required: true,
   },
 
+
   started_At: {
     type: Date,
     default: Date.now,
-  }
-  
+  },
 
+  ended_At: {
+    type: Date,
+  },
 
   streak: {
     type: Number,
@@ -27,5 +30,14 @@ const session_Schema = new mongoose.Schema({
     default: 0,
   },
 
+  time_Spent: {
+    type: Number,
+    default: 0,
+  }
 
-}, {timestamps:true})
+
+}, {timestamps:true});
+
+const Sessions = mongoose.model("Sessions", session_Schema);
+
+export default Sessions;
