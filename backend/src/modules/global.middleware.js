@@ -7,32 +7,23 @@ const global_Error_Middleware = (err, req, res, next) => {
     error.message = err.message;
     console.error(err);
     
-    // Mongoose Errors
-
+    // Mongoose Errors for Database
     if (err.name === 'CastError') {
       const message = 'Resource not found';
       error = new Error(message);
       error.statusCode = '404';
     }
-
     if (err.code === 1100) {
       const message = 'Duplicated Field Already in Used';
       error = new Error(message);
       error.statusCode = '400';
     }
-
     // Compiles all error we have
     if (err.name === 'ValidationError') {
       const message = Object.values(err.errors).map(value => value.message);
       error = new Error(message.join(', '));
       error.statusCode = '400';
     }
-
-
-    // Server-side internal errors
-
-
-    // Database Errors
 
 
     // Generated Error Response
@@ -46,6 +37,8 @@ const global_Error_Middleware = (err, req, res, next) => {
   }
   
 };
+
+export default global_Error_Middleware;
 
 
 

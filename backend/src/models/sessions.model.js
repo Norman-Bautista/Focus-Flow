@@ -38,6 +38,6 @@ const session_Schema = new mongoose.Schema({
 
 }, {timestamps:true});
 
-const Sessions = mongoose.model("Sessions", session_Schema);
+const Session = mongoose.model("Sessions", session_Schema);
 
-export default Sessions;
+export default Session;

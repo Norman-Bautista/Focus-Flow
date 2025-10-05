@@ -31,6 +31,6 @@ const insightSchema = new mongoose.Schema({
   generatedAt: { type: Date, default: Date.now }
 }, { timestamps: true });
 
-const Insights = mongoose.model("Insights", insightSchema)
+const Insight = mongoose.model("Insights", insightSchema)
 
-export default Insights;
+export default Insight;
