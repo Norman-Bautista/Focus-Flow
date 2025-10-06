@@ -7,7 +7,6 @@ const authorize_Middleware = async (req, res, next) => {
     let token;
 
     /** req.headers.authorization is a HTTP request object that display authorization access and information */
-
     if (req.headers.authorization?.startsWith('Bearer')) {
       token = req.headers.authorization.split(' ')[1];
     }
