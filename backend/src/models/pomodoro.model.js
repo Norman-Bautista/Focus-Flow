@@ -1,37 +1,42 @@
 
 import mongoose, { mongo } from "mongoose";
 
-const setting_Schema = new mongoose.Schema({
+const pomodoro_Schema = new mongoose.Schema({
   user: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
     required: true,
   },
 
-  display_Name: {
-    type: String,
-    default: "default",
-  },
-
   focus_Duration: {
     type: Number,
+    default: 25,
   },
 
-  break_Duration: {
+  rest_Duration: {
     type: Number,
+    default: 5,
   },
 
   longBreak_Duration: {
     type: Number,
+    default: 15,
   },
 
   setCycle_Before_Longbreak: {
     type: Number,
+    default: 4,
+  },
+
+  updated_At: {
+    type: Date,
+    default: Date.now(),  
   }
+
 }, {timestamps: true});
 
 
-const Setting = mongoose.model('Settings', setting_Schema);
+const Pomodoro = mongoose.model('Pomodoro', pomodoro_Schema);
 
-export default Setting;
+export default Pomodoro;
 
