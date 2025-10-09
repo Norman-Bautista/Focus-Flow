@@ -33,6 +33,12 @@ const todo_Schema = new mongoose.Schema({
       default: 0,
     },
 
+  status: {
+    type: String,
+    enum: ["Not done", "Completed"],
+    default: "Not done"
+  },
+
   created_At: {
     type: Date,
     default:Date.now(),
