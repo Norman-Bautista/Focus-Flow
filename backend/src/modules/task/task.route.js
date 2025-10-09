@@ -1,0 +1,20 @@
+import {Router} from 'express';
+import {
+  get_All_Tasks,
+  get_Specific_Task,
+  create_Task,
+  update_Task,
+  complete_Task,
+  delete_Task,
+} from './task.controller.js'
+
+const task_Routes = Router();
+
+task_Routes.get('/tasks' ,get_All_Tasks);
+task_Routes.get('/tasks/:id', get_Specific_Task);
+task_Routes.post('/tasks', create_Task );
+task_Routes.put('/tasks/:id', update_Task);
+task_Routes.put('/tasks/:id/complete', complete_Task);
+task_Routes.delete('/tasks/:id', delete_Task);
+
+export default task_Routes;

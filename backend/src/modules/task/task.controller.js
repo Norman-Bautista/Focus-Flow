@@ -99,8 +99,46 @@ export const update_Task = async (req,res,next) => {
 
 export const complete_Task = async (req,res,next) => {
 
+  try {
+
+    const {id} = req.params;
+    const task = await Task.findOneAndUpdate(
+      {_id: id, user: req.user._id},
+      {status: "Completed"},
+      {new: true, runValidators:true},
+    );
+
+    if (!task) {
+      return res.status(404).json({ success: false, message: "Task not found or already deleted" });
+    }
+
+    res.status(200).json({
+      success: true,
+      message: "Task marked as completed",
+      data: task,
+    });
+
+  } catch (error) {
+    next(error);
+  }
 };
 
 export const delete_Task = async (req,res,next) => {
   
-}
+  try {
+    const {id} = req.params;
+
+    const task = await Task.findOneAndDelete(
+      {_id: id, user: req.user._id},
+    );
+
+    res.status(200).json({
+      success: true,
+      message: "Task deleted successfully",
+      data: task,
+    });
+
+  } catch (error) {
+    next(error);
+  }
+};
