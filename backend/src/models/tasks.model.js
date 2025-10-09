@@ -46,6 +46,6 @@ const todo_Schema = new mongoose.Schema({
 
 }, {timestamps: true})
 
-const Task = mongoose.model('Tasks', todo_Schema);
+const Task = mongoose.model('Task', todo_Schema);
 
 export default Task;

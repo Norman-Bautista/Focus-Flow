@@ -7,8 +7,11 @@ import {
   complete_Task,
   delete_Task,
 } from './task.controller.js'
+import authorize_Middleware from '../auth/auth.middleware.js';
 
 const task_Routes = Router();
+
+task_Routes.use(authorize_Middleware);
 
 task_Routes.get('/tasks' ,get_All_Tasks);
 task_Routes.get('/tasks/:id', get_Specific_Task);

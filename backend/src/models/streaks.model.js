@@ -1,7 +1,7 @@
 
 import mongoose from "mongoose";
 
-const session_Schema = new mongoose.Schema({
+const streak_Schema = new mongoose.Schema({
 
   // Foreign Key Concept in mongoose Schema.type
   user: {
@@ -9,7 +9,6 @@ const session_Schema = new mongoose.Schema({
     ref: "User",
     required: true,
   },
-
 
   started_At: {
     type: Date,
@@ -35,9 +34,8 @@ const session_Schema = new mongoose.Schema({
     default: 0,
   }
 
-
 }, {timestamps:true});
 
-const Session = mongoose.model("Sessions", session_Schema);
+const Streak = mongoose.model("Streak", streak_Schema);
 
-export default Session;
+export default Streak;

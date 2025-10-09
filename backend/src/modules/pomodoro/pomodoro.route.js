@@ -1,7 +1,11 @@
 import {Router} from 'express';
 import { get_All_Timers, get_Timer_Value, update_Timer_Values, clear_Timer, update_Cycle_Longbreak } from './pomodoro.controller';
+import authorize_Middleware from '../auth/auth.middleware';
 
 const pomodoro_Routes = Router();
+
+// authorization middleware
+pomodoro_Routes.use(authorize_Middleware);
 
 // Get the current timer values (focus, rest, longbreak)
 pomodoro_Routes.get('/timer', get_All_Timers);
