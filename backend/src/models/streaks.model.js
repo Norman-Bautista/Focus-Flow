@@ -32,6 +32,18 @@ const streak_Schema = new mongoose.Schema({
   time_Spent: {
     type: Number,
     default: 0,
+  },
+
+  timer_Type: {
+    type: String,
+    enum: ['focus', 'rest', 'longbreak'],
+    default: 'focus'
+  },
+
+  status: {
+    type: String,
+    enum: ['started', 'paused', 'done', 'reset'],
+    default: 'reset'
   }
 
 }, {timestamps:true});
