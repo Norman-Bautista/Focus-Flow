@@ -9,8 +9,8 @@ const db_Connection = async() => {
 
   try {
     await mongoose.connect(MONGO_URI);
-  } catch (err) {
-    console.err("Connection failed. Something went wrong", err)
+  } catch (error) {
+    console.error("Connection failed. Something went wrong", error)
     process.exit(1);
   }
 }

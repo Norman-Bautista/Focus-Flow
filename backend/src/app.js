@@ -1,7 +1,7 @@
 import express from "express";
 import morgan from "morgan";
 
-import global_Error_Middleware from "./middleware/global.middleware";
+import global_Error_Middleware from "./middleware/global.middleware.js";
 import auth_Routes from './modules/auth/auth.route.js';
 import pomodoro_Routes from "./modules/pomodoro/pomodoro.route.js";
 import task_Routes from "./modules/task/task.route.js";

@@ -44,7 +44,12 @@ const streak_Schema = new mongoose.Schema({
     type: String,
     enum: ['started', 'paused', 'done', 'reset'],
     default: 'reset'
-  }
+  },
+
+  last_Active: {
+  type: String, // stored as Date.toDateString()
+  default: "",
+},
 
 }, {timestamps:true});
 

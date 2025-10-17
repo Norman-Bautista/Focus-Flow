@@ -6,15 +6,19 @@ const insightSchema = new mongoose.Schema({
   startDate: Date,
   endDate: Date,
 
-  metrics: {
-    streakCount: Number,
-    cyclesCompleted: Number,
-    consistencyRate: Number,
-    currentStreak: Number,
-    mostEffectiveTimer: {
-      focusDuration: Number,
-      breakDuration: Number,
+    consistency: {
+      type: Number,
     },
+  
+    metrics: {
+      streakCount: Number,
+      cyclesCompleted: Number,
+      consistencyRate: Number,
+      currentStreak: Number,
+      mostEffectiveTimer: {
+        focusDuration: Number,
+        breakDuration: Number,
+      },
 
     mostProductiveDays: {
       breakdown: [
