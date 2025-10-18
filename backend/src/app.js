@@ -5,6 +5,7 @@ import global_Error_Middleware from "./middleware/global.middleware.js";
 import auth_Routes from './modules/auth/auth.route.js';
 import pomodoro_Routes from "./modules/pomodoro/pomodoro.route.js";
 import task_Routes from "./modules/task/task.route.js";
+import insight_Routes from "./modules/insight/insight.routes.js";
 
 const app = express();
 
@@ -24,8 +25,9 @@ app.get("/health", (req, res) => {
 
 // Route Mounting
 app.use('/api/v1/auth', auth_Routes);
-app.use('/api/v1/pomodoro', pomodoro_Routes);
+app.use('/api/v1/pomodoro', pomodoro_Routes); 
 app.use('/api/v1/tasks', task_Routes);
+app.use('/api/v1/insights', insight_Routes);
 
 // ✅ Export app for server.js
 export default app;
