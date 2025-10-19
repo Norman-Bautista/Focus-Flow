@@ -1,6 +1,6 @@
 import express from "express";
 import morgan from "morgan";
-
+import cors from "cors";
 import global_Error_Middleware from "./middleware/global.middleware.js";
 import auth_Routes from './modules/auth/auth.route.js';
 import pomodoro_Routes from "./modules/pomodoro/pomodoro.route.js";
@@ -13,7 +13,10 @@ const app = express();
 app.use(express.json());                         // Parse JSON bodies
 app.use(express.urlencoded({ extended: true })); // Parse URL-encoded data
 app.use(morgan("dev"));                          // Logging
-
+app.use(cors({
+  origin: "http://localhost:5173", // or your React dev port
+  credentials: true, // important for cookies and withCredentials
+}));
 // Internal middlewares
 app.use(global_Error_Middleware);
 
