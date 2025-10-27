@@ -19,7 +19,7 @@ const Landing = () => {
         <div className="container mx-auto px-4 sm:px-6 md:px-8">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             {/* Left side - Content */}
-            <div className="text-center lg:text-left">
+            <div className="text-center mt-12 lg:text-left">
               <h1 className="text-xxl font-bold text-shadow mb-6">
                 FocusFlow
               </h1>
