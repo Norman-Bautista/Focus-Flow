@@ -17,7 +17,7 @@ export const sign_Up = async (req, res, next) => {
 
     const existingUser = await User.findOne({ email });
     if (existingUser) {
-      return res.status(400).json({ message: "Email already in use." });
+      return res.status(400).json({ message: "Invalid Email or Password" });
     }
 
     // hash password and save

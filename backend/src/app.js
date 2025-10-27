@@ -17,6 +17,15 @@ app.use(cors({
   origin: "http://localhost:5173", // or your React dev port
   credentials: true, // important for cookies and withCredentials
 }));
+
+
+// Route Mounting
+app.use('/api/v1/auth', auth_Routes);
+app.use('/api/v1/pomodoro', pomodoro_Routes); 
+app.use('/api/v1/tasks', task_Routes);
+app.use('/api/v1/insights', insight_Routes);
+
+
 // Internal middlewares
 app.use(global_Error_Middleware);
 
@@ -26,11 +35,6 @@ app.get("/health", (req, res) => {
   res.json({ status: "ok", message: "FocusFlow backend is running 🚀" });
 });
 
-// Route Mounting
-app.use('/api/v1/auth', auth_Routes);
-app.use('/api/v1/pomodoro', pomodoro_Routes); 
-app.use('/api/v1/tasks', task_Routes);
-app.use('/api/v1/insights', insight_Routes);
 
 // ✅ Export app for server.js
 export default app;
