@@ -1,0 +1,36 @@
+#THIS is the script for key services in my app
+# DATABASE, Frontend, Backend
+
+
+version: "4.55"
+
+services:
+  mongo:
+    image: mongo:7
+    container_name: mongo_db
+    restart: always
+    volumes:
+      - mongo_data:/data/db
+    ports:
+      - "27017:27017"
+
+server: 
+  build: ./backend
+  container_name: backend_api
+  restart: always
+  env_file:
+    .env
+  ports: 
+    - "5000:5000"
+  depends_on:
+    - mongo
+
+client: 
+  build: ./frontend
+  container_name: client
+  restart: always
+  ports:
+    - "80:3000"
+
+volumes: 
+  mongo_data:
