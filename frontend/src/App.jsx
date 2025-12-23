@@ -13,23 +13,20 @@ function App() {
   const { user } = useAuth();
 
   const router = createBrowserRouter([
-    // Landing page
     {
       path: "/",
       element: user ? <Navigate to="/app/pomodoro" replace /> : <Landing />,
     },
-    // Protected app routes
     {
       path: "/app",
       element: <Layout />,
       children: [
-        { index: true, element: <Navigate to="/app/pomodoro" /> },
-        { path: "/pomodoro", element: <PrivateRoute><Pomodoro /></PrivateRoute> },
-        { path: "/calendar", element: <PrivateRoute><Calendar /></PrivateRoute> },
-        { path: "/insights", element: <PrivateRoute><Insights /></PrivateRoute> },
+        { index: true, element: <Navigate to="pomodoro" replace /> },
+        { path: "pomodoro", element: <PrivateRoute><Pomodoro /></PrivateRoute> },
+        { path: "calendar", element: <PrivateRoute><Calendar /></PrivateRoute> },
+        { path: "insights", element: <PrivateRoute><Insights /></PrivateRoute> },
       ],
     },
-    // Auth routes
     {
       path: "/login",
       element: user ? <Navigate to="/app/pomodoro" replace /> : <Login />,
