@@ -26,12 +26,11 @@ export const loginUser = async (data) => {
 export const logoutUser = async () => {
 
   try {
-    const res = await API.post("/auth/logout");
+    const res = await API.post("api/v1/auth/logout");
     return res.data;
   } catch (error) {
     throw new Error(error.response?.data?.message)
   }
-
 };
 
 export const refreshToken = async () => {

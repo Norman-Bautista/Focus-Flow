@@ -22,7 +22,7 @@ app.use(cors({
 // Route Mounting
 app.use('/api/v1/auth', auth_Routes);
 app.use('/api/v1/pomodoro', pomodoro_Routes); 
-app.use('/api/v1/tasks', task_Routes);
+app.use('/api/v1/task', task_Routes);
 app.use('/api/v1/insights', insight_Routes);
 
 

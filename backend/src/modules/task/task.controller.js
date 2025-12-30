@@ -17,7 +17,7 @@ export const get_All_Tasks = async (req,res,next) => {
   }
 };
 
-export const get_Specific_Task = async (req,res,next) => {
+export const get_Task = async (req,res,next) => {
 
   try {
 
