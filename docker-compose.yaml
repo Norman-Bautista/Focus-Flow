@@ -2,7 +2,7 @@
 services:
   mongo:
     image: mongo:7
-    container_name: mongo_db
+    container_name: mongo
     restart: always
     volumes:
       - mongo_data:/data/db
@@ -11,12 +11,15 @@ services:
 
   server:
     build: ./backend
-    container_name: backend_api
+    container_name: server
     restart: always
     env_file:
-      - .env
+      - ./backend/.env
     ports:
       - "5000:5000"
+    dns:
+      - 8.8.8.8
+      - 8.8.4.4
     depends_on:
       - mongo
 

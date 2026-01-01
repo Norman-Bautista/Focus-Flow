@@ -1,15 +1,13 @@
-#server
-#DOCKERFILE instruction to run backend
-
 FROM node:20-alpine
 
-WORKDIR/app
+WORKDIR /app
 
-#Copies the packages
+RUN apk add --no-cache ca-certificates
+
 COPY package*.json ./
 RUN npm install --production
 
 COPY . .
 
 EXPOSE 5000
-CMD ["node","server.js"]
+CMD ["node","src/server.js"]
