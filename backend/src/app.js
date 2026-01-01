@@ -25,16 +25,13 @@ app.use('/api/v1/pomodoro', pomodoro_Routes);
 app.use('/api/v1/task', task_Routes);
 app.use('/api/v1/insights', insight_Routes);
 
-
 // Internal middlewares
 app.use(global_Error_Middleware);
-
 
 // ✅ Health check route
 app.get("/health", (req, res) => {
   res.json({ status: "ok", message: "FocusFlow backend is running 🚀" });
 });
-
 
 // ✅ Export app for server.js
 export default app;
