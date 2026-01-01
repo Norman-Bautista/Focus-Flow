@@ -1,18 +1,19 @@
-name: CodeRabbit AI Review
-
+name: Coderabbit Solo Review
 on:
   pull_request:
-    types: [opened, synchronize, reopened]
-
+    branches: [main]
+  workflow_dispatch: 
+    
 permissions:
   contents: read
   pull-requests: write
 
 jobs:
-  review:gi
+  review:
     runs-on: ubuntu-latest
     steps:
-      - name: Run CodeRabbit AI Reviewer
+      - name: Run Coderabbit
+        if: github.event.pull_request.user.login == github.actor
         uses: coderabbitai/ai-pr-reviewer@latest
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

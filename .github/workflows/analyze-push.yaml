@@ -1,0 +1,22 @@
+name: Analyze Code on Push
+on:
+  push:
+    branches: [main]
+
+jobs:
+  analyze:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Create Pull Request for Self-Review
+        if: github.event_name == 'push'
+        run: |
+          # Create a PR for the last commit
+          gh pr create \
+            --title "Self-review: $(git log -1 --pretty=%B)" \
+            --body "Automated self-review" \
+            --base main \
+            --head main
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
