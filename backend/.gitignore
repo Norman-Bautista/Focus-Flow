@@ -7,6 +7,7 @@ pnpm-debug.log*
 
 # Environment variables
 .env
+.env.development.local
 backend/.env*
 
 # Logs
