@@ -1,6 +1,6 @@
 // backend/server.js (partial)
 import express from 'express';
-import connectDB from './src/config/db.js';
+import connectDB from './config/db.js';
 import mongoose from 'mongoose';
 
 const app = express();
