@@ -14,8 +14,9 @@ app.use(express.json());                         // Parse JSON bodies
 app.use(express.urlencoded({ extended: true })); // Parse URL-encoded data
 app.use(morgan("dev"));                          // Logging
 app.use(cors({
-  origin: "http://localhost:5173", // or your React dev port
+  origin: ["http://localhost:5173", "https://focus-flow-client-amber.vercel.app"],// or your React dev port
   credentials: true, // important for cookies and withCredentials
+  allowedHeaders: ['Content-Type', 'Authorization'],
 }));
 
 

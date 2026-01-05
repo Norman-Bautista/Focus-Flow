@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const api = axios.create({
-  baseURL: "https://focus-flow-ioce.onrender.com",
+  baseURL: ["https://focus-flow-ioce.onrender.com", "http://localhost:5173"], // switch to localhost for local dev
   timeout: 5000,
   headers: {
     "Content-Type": "application/json",

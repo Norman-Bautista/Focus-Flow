@@ -1,6 +1,6 @@
-name: CI - Backend Tests
+name: CI - Backend Tests #workflow name
 
-on:
+on: #event triggers
   push:
     paths:
       - 'backend/**'
@@ -9,9 +9,9 @@ on:
     paths:
       - 'backend/**'
 
-jobs:
+jobs: #job definitions
   test:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-latest #runner environment
     
     strategy:
       matrix:
@@ -19,10 +19,10 @@ jobs:
     
     steps:
     - name: Checkout code
-      uses: actions/checkout@v4
+      uses: actions/checkout@v4  #actions/checkout@v4
     
     - name: Setup Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v4
+      uses: actions/setup-node@v4 #actions/setup-node@v4
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
@@ -30,7 +30,7 @@ jobs:
     
     - name: Install dependencies
       run: |
-        cd backend
+        cd backend 
         npm ci
     
     - name: Run tests with Jest

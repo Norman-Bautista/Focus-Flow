@@ -3,8 +3,7 @@ import mongoose from 'mongoose';
 
 // Configuration matching your MongoDB URI parameters
 const mongooseOptions = {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
+
   serverSelectionTimeoutMS: 30000,    // Match your URI: serverSelectionTimeoutMS=30000
   socketTimeoutMS: 45000,             // Match your URI: socketTimeoutMS=45000
   family: 4,                          // Force IPv4 for better Asia connectivity
