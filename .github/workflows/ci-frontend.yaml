@@ -26,14 +26,7 @@ jobs: #job definitions
     
     - name: Install dependencies
       run: cd frontend && npm ci
-    
-    # Choose ONE of these test approaches:
-    
-    # Approach A: If using Vitest
+
     - name: Run Vitest tests
       run: cd frontend && npm test -- --run
  
-    # Approach C: Build verification only (no tests)
-    - name: Verify build
-      run: cd frontend && npm run build
-    

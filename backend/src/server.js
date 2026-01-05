@@ -56,7 +56,7 @@ const startServer = async () => {
     dbConnection = await connectDB();
     
     // Start Express server
-    app.listen(PORT, '0.0.0.0', () => {
+    app.listen(PORT, () => {
       console.log(`✅ Server running on port ${PORT}`);
       console.log(`🔗 Health endpoint: http://0.0.0.0:${PORT}/health`);
       console.log(`🌐 Public URL: https://focus-flow-ioce.onrender.com`);

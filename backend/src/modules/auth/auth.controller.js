@@ -1,8 +1,8 @@
 import User from "../../models/users.model.js";
 import jwt from "jsonwebtoken";
 
-import { hashed_Password, compared_Password } from "../../utils/password.hash.js";
-import { generate_Access_Token, generate_Refresh_Token } from "../../utils/generate.token.js";
+import { hashed_Password, compared_Password } from "../../util/password.hash.js";
+import { generate_Access_Token, generate_Refresh_Token } from "../../util/generate.token.js";
 import { REFRESH_TOKEN_SECRET } from "../../config/env.js";
 
 
