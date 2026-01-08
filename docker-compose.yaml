@@ -1,8 +1,9 @@
+version: '3.8'
 
 services:
   mongo:
     image: mongo:7
-    container_name: mongo
+    container_name: focusflow-mongo
     volumes:
       - mongo_data:/data/db
     ports:
@@ -10,24 +11,30 @@ services:
 
   server:
     build: ./backend
-    container_name: server
+    container_name: focusflow-server
     env_file:
-      - ./backend/.env
+      - ./backend/.env.${NODE_ENV:-development}  
+    environment:
+      - NODE_ENV=${NODE_ENV:-development}
     ports:
       - "5000:5000"
-    dns:
-      - 8.8.8.8
-      - 8.8.4.4
     depends_on:
       - mongo
 
   client:
     build: ./frontend
-    container_name: client
+    container_name: focusflow-client
     env_file:
-      - ./frontend/.env
+      - ./frontend/.env.${NODE_ENV:-development} 
+    environment:
+      - NODE_ENV=${NODE_ENV:-development}
     ports:
-      - "5173:5173"  
+      - "5173:5173"
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    depends_on:
+      - server
 
 volumes:
   mongo_data:

@@ -21,7 +21,7 @@ const connectWithRetry = async (retries = 5, delay = 5000) => {
     try {
       console.log(`🔄 Connection attempt ${attempt}/${retries}`);
       
-      const conn = await mongoose.connect(process.env.MONGODB_URI, mongooseOptions);
+      const conn = await mongoose.connect(process.env.MONGO_URI, mongooseOptions);
       
       console.log(`✅ MongoDB Connected!`);
       console.log(`   Host: ${conn.connection.host}`);
@@ -48,7 +48,7 @@ const connectWithRetry = async (retries = 5, delay = 5000) => {
 const connectDB = async () => {
   try {
     // Give Render time to fully initialize
-    if (process.env.NODE_ENV === 'production') {
+    if (process.env.NODE_ENV === 'development') {
       console.log('⚡ Production mode detected (Render Singapore)');
       console.log('⏳ Waiting 3 seconds before DB connection...');
       await new Promise(resolve => setTimeout(resolve, 3000));

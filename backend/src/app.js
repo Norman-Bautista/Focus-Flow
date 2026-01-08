@@ -5,7 +5,6 @@ import global_Error_Middleware from "./middleware/global.middleware.js";
 import auth_Routes from './modules/auth/auth.route.js';
 import pomodoro_Routes from "./modules/pomodoro/pomodoro.route.js";
 import task_Routes from "./modules/task/task.route.js";
-import insight_Routes from "./modules/insight/insight.routes.js";
 
 const app = express();
 
@@ -32,7 +31,6 @@ app.use(morgan("dev"));
 app.use('/api/v1/auth', auth_Routes);
 app.use('/api/v1/pomodoro', pomodoro_Routes); 
 app.use('/api/v1/task', task_Routes);
-app.use('/api/v1/insights', insight_Routes);
 
 // ✅ 404 handler
 app.use('*', (req, res) => {
