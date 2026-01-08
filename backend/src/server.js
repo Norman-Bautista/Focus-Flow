@@ -7,11 +7,6 @@ dotenv.config();
 
 const PORT = process.env.PORT || 5000;
 
-// ✅ Add health check to the imported app
-app.get("/health", (req, res) => {
-  const dbState = mongoose.connection.readyState;
-  // ... same health check logic as before
-});
 
 const startServer = async () => {
   try {

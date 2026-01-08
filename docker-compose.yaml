@@ -11,7 +11,7 @@ services:
   server:
     build: ./backend
     env_file:
-      - ./backend/.env  # Single file
+      - ./backend/.env 
     ports:
       - "5000:5000"
     depends_on:
