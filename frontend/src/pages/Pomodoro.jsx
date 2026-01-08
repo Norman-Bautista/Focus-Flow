@@ -21,10 +21,13 @@ const Pomodoro = () => {
 
   return (
     <div className="flex flex-col lg:flex-row gap-6 w-full relative">
-      {/* AI Reminder */}
-      <div className="flex-1 flex justify-start items-center outline-2">
-        <div className="bg-shadow w-16 h-16 p-4 mt-16 rounded-4xl flex justify-center items-center">
-          <BotMessageSquare className="text-white" />
+      {/* Task List */}
+      <div className="flex-1 flex justify-start items-center p-4 outline-1">
+        <div className="container m-auto p-4 border-3 border-shadow bg-secondary rounded-2xl w-78 mt-24"> 
+          <header className="flex justify-between items-center mb-4">
+            <h1>To-do List</h1>
+            <button className="px-2 py-2 bg-shadow text-white rounded-xl cursor-pointer">+</button>
+          </header>
         </div>
       </div>
 
@@ -83,7 +86,7 @@ const Pomodoro = () => {
       </div>
 
       {/* Streaks + Cycles Column */}
-      <div className="flex-1 flex justify-center outline-2">
+      <div className="flex-1 flex justify-center ">
         <div className="container m-auto p-4 border-3 border-shadow bg-secondary rounded-2xl w-78 mt-24">
           <p className="font-sans">Total Streak: {/* streak num */}</p>
           <p className="font-sans">Total Daily Cycles: {/* cycle count */}</p>
