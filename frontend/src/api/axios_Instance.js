@@ -1,10 +1,8 @@
 import axios from 'axios';
 
 const api = axios.create({
-  baseURL: window.location.hostname === "localhost"
-    ? "http://localhost:10000" // backend local port
-    : "https://focus-flow-ioce.onrender.com", // backend Render URL
-  timeout: 5000,
+  baseURL: import.meta.env.VITE_API_URL,
+  timeout: import.meta.env.MODE === 'development' ? 5000 : 10000,
   headers: {
     "Content-Type": "application/json",
   },

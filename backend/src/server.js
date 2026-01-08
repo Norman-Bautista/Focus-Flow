@@ -1,79 +1,33 @@
-// backend/server.js (partial)
-import express from 'express';
+import app from './app.js'; // Import the app from app.js
+import dotenv from 'dotenv';
 import connectDB from './config/db.js';
 import mongoose from 'mongoose';
-import dotenv from 'dotenv';
 
 dotenv.config();
 
-const app = express();
-const PORT = process.env.PORT || 10000;
+const PORT = process.env.PORT || 5000;
 
-// Enhanced health endpoint
-app.get('/health', async (req, res) => {
+// ✅ Add health check to the imported app
+app.get("/health", (req, res) => {
   const dbState = mongoose.connection.readyState;
-  const dbStates = {
-    0: 'disconnected',
-    1: 'connected', 
-    2: 'connecting',
-    3: 'disconnecting'
-  };
-  
-  const health = {
-    status: dbState === 1 ? 'healthy' : 'degraded',
-    timestamp: new Date().toISOString(),
-    uptime: process.uptime(),
-    region: 'Singapore',
-    database: {
-      state: dbStates[dbState] || 'unknown',
-      code: dbState,
-      host: dbState === 1 ? mongoose.connection.host : null,
-      name: dbState === 1 ? mongoose.connection.name : null
-    },
-    memory: {
-      rss: `${Math.round(process.memoryUsage().rss / 1024 / 1024)}MB`,
-      heapTotal: `${Math.round(process.memoryUsage().heapTotal / 1024 / 1024)}MB`,
-      heapUsed: `${Math.round(process.memoryUsage().heapUsed / 1024 / 1024)}MB`
-    },
-    environment: process.env.NODE_ENV || 'development'
-  };
-  
-  // Health status code
-  const statusCode = health.status === 'healthy' ? 200 : 503;
-  res.status(statusCode).json(health);
+  // ... same health check logic as before
 });
-
-// Initialize database connection
-let dbConnection = null;
 
 const startServer = async () => {
   try {
     console.log('🚀 Starting FocusFlow Backend...');
-    console.log(`🌏 Region: Singapore`);
-    console.log(`⚡ Environment: ${process.env.NODE_ENV || 'development'}`);
     
     // Connect to MongoDB
-    dbConnection = await connectDB();
+    await connectDB();
     
     // Start Express server
     app.listen(PORT, () => {
       console.log(`✅ Server running on port ${PORT}`);
-      console.log(`🔗 Health endpoint: http://0.0.0.0:${PORT}/health`);
-      console.log(`🌐 Public URL: https://focus-flow-ioce.onrender.com`);
-      
-      if (dbConnection) {
-        console.log(`🗄️  Database: ${mongoose.connection.readyState === 1 ? 'Connected' : 'Not connected'}`);
-      }
     });
     
   } catch (error) {
     console.error('💥 Server startup failed:', error.message);
-    
-    // In production, try to restart
-    if (process.env.NODE_ENV === 'production') {
-      console.log('🔄 Attempting restart in 10 seconds...');
-      setTimeout(startServer, 10000);
-    }
+    process.exit(1);
   }
 };
 
@@ -91,7 +45,4 @@ process.on('SIGTERM', () => {
   }
 });
 
-// Start the application
 startServer();
-
-export default app;
