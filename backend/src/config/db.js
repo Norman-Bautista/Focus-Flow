@@ -1,90 +1,49 @@
-// backend/src/config/db.js
 import mongoose from 'mongoose';
+import dotenv from 'dotenv';
 
-// Configuration matching your MongoDB URI parameters
-const mongooseOptions = {
-
-  serverSelectionTimeoutMS: 30000,    // Match your URI: serverSelectionTimeoutMS=30000
-  socketTimeoutMS: 45000,             // Match your URI: socketTimeoutMS=45000
-  family: 4,                          // Force IPv4 for better Asia connectivity
-  maxPoolSize: 10,                    // Match your URI: maxPoolSize=10
-  minPoolSize: 2,                     // Connection pool minimum
-  retryWrites: true,                  // Match your URI: retryWrites=true
-  w: 'majority',                      // Match your URI: w=majority
-  appName: 'render-sg',               // Match your URI: appName=render-sg
-};
-
-const connectWithRetry = async (retries = 5, delay = 5000) => {
-  console.log(`🌏 Connecting to MongoDB from Singapore...`);
-  
-  for (let attempt = 1; attempt <= retries; attempt++) {
-    try {
-      console.log(`🔄 Connection attempt ${attempt}/${retries}`);
-      
-      const conn = await mongoose.connect(process.env.MONGO_URI, mongooseOptions);
-      
-      console.log(`✅ MongoDB Connected!`);
-      console.log(`   Host: ${conn.connection.host}`);
-      console.log(`   Database: ${conn.connection.name}`);
-      console.log(`   Ready State: ${conn.connection.readyState}`);
-      
-      return conn;
-      
-    } catch (error) {
-      console.error(`❌ Attempt ${attempt} failed:`, error.message);
-      
-      if (attempt < retries) {
-        const nextDelay = delay * attempt; // Exponential backoff
-        console.log(`⏳ Retrying in ${nextDelay/1000} seconds...`);
-        await new Promise(resolve => setTimeout(resolve, nextDelay));
-      } else {
-        console.error(`💥 All ${retries} connection attempts failed`);
-        throw error;
-      }
-    }
-  }
-};
+// Load environment variables
+dotenv.config();
 
 const connectDB = async () => {
+  const isProduction = process.env.NODE_ENV === 'development';
+  
+  console.log(`🚀 Starting MongoDB connection...`);
+  console.log(`🌍 Environment: ${isProduction ? 'Production' : 'Development'}`);
+  
+  // Get URI from environment
+  const mongoURI = process.env.MONGODB_URI;
+  
+  if (!mongoURI) {
+    console.error('❌ ERROR: MONGODB_URI is not defined in .env file');
+    process.exit(1);
+  }
+  
+  // Log sanitized URI (hide password)
+  const safeURI = mongoURI.includes('@') 
+    ? mongoURI.replace(/:([^:@]+)@/, ':****@')
+    : mongoURI;
+  console.log(`🔗 MongoDB URI: ${safeURI}`);
+  
   try {
-    // Give Render time to fully initialize
-    if (process.env.NODE_ENV === 'development') {
-      console.log('⚡ Production mode detected (Render Singapore)');
-      console.log('⏳ Waiting 3 seconds before DB connection...');
-      await new Promise(resolve => setTimeout(resolve, 3000));
-    }
+    const conn = await mongoose.connect(mongoURI, {
+      serverSelectionTimeoutMS: 30000,
+      socketTimeoutMS: 45000,
+      maxPoolSize: 10,
+    });
     
-    const connection = await connectWithRetry();
+    console.log(`✅ MongoDB Connected!`);
+    console.log(`   Host: ${conn.connection.host}`);
+    console.log(`   Database: ${conn.connection.name}`);
     
-    // Event handlers for connection monitoring
-    mongoose.connection.on('error', (err) => {
-      console.error('MongoDB connection error event:', err.message);
-    });
-
-    mongoose.connection.on('disconnected', () => {
-      console.log('⚠️ MongoDB disconnected');
-      console.log('🔄 Will attempt auto-reconnect on next operation...');
-    });
-
-    mongoose.connection.on('reconnected', () => {
-      console.log('✅ MongoDB reconnected successfully');
-    });
-
-    mongoose.connection.on('connected', () => {
-      console.log('🔗 MongoDB connected event fired');
-    });
-
-    return connection;
-    
+    return conn;
   } catch (error) {
-    console.error('💥 MongoDB connection failed after all retries:', error.message);
+    console.error(`❌ MongoDB Connection Failed: ${error.message}`);
     
-    // In production, don't crash - log and continue
-    if (process.env.NODE_ENV === 'production') {
-      console.log('🚨 Application will run without database connection');
+    if (isProduction) {
+      console.log('⚠️ Running without database in production');
       return null;
     } else {
-      // In development, exit so we notice the issue
+      console.log('💥 Exiting in development mode');
       process.exit(1);
     }
   }
