@@ -9,5 +9,5 @@ RUN npm install --production
 
 COPY . .
 
-EXPOSE 5000
+EXPOSE 10000
 CMD ["node","src/server.js"]
