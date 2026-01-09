@@ -24,3 +24,6 @@ frontend/.env*
 *.njsproj
 *.sln
 *.sw?
+
+# Vite cache directory
+.vite/

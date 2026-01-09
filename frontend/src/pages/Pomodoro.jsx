@@ -32,6 +32,7 @@ const Pomodoro = () => {
 
   // Fetch all tasks on component mount
   useEffect(()=> {
+    setIsLoading(true);
     const fetchTasks = async () => {
       const tasks = await get_All_Tasks();
       todoDispatch({type: "GET_ALL_TASKS", payload: tasks});
@@ -39,8 +40,13 @@ const Pomodoro = () => {
     fetchTasks();
   })
 
+  const handleCompleteTask = () => {
+
+  };
+
   return (
     <div className="flex flex-col lg:flex-row gap-6 w-full relative">
+    
       {/* Task List */}
       <div className="flex-1 flex justify-start items-center">
         <div className="container m-auto p-4 border-3 border-shadow bg-secondary rounded-2xl w-78 mt-24"> 
@@ -51,6 +57,9 @@ const Pomodoro = () => {
             onClick={() => {setTaskModal(true)}}
             ><CirclePlus /></button>
           </header>
+
+
+
             {todoState.tasks.map((task) => (
               <div key={task.id} className="mb-2 p-2 border-b border-gray-300">
                 <h2 className="font-bold">{task.title}</h2>

@@ -2,6 +2,7 @@ import api from axios_Instance.js
 
 export const get_All_Tasks = async () => {
     try { 
+        setIsLoading(true);
         const response = await api.get("api/v1/task/tasks");
         return response.data;
     } catch (error) {
