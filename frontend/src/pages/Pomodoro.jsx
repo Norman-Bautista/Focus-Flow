@@ -11,7 +11,7 @@ import { CirclePlus } from 'lucide-react';
 import PomodoroModal from "../shared/components/PomodoroModal.jsx"; 
 import TodoModal from "../shared/components/TodoModal.jsx";
 
-import {get_All_Tasks, get_Task, create_Task, update_Task, complete_Task, delete_Task} from '../api/task.api.js';
+import {get_All_Tasks, get_Task, complete_Task,} from '../api/task.api.js';
 
 const Pomodoro = () => {
   const [state, dispatch] = useReducer(pomodoroReducer, initialState);
@@ -58,14 +58,7 @@ const Pomodoro = () => {
             ><CirclePlus /></button>
           </header>
 
-
-
-            {todoState.tasks.map((task) => (
-              <div key={task.id} className="mb-2 p-2 border-b border-gray-300">
-                <h2 className="font-bold">{task.title}</h2>
-                <p>{task.description}</p>
-              </div>
-            ))}
+        
         </div>
       </div>
 
@@ -142,6 +135,14 @@ const Pomodoro = () => {
             longBreak: state.longBreak,
             cycles: state.cyclesBeforeLongBreak,
           }}
+        />
+      )}
+
+      {taskModal && (
+        <TodoModal
+          onClose={()=> setTaskModal(false)}
+          disptach={dispatch}
+          
         />
       )}
     </div>
