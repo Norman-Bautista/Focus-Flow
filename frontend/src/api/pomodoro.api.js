@@ -1,4 +1,4 @@
-import api from axios_Instance.js
+import api from './axios_Instance.js'
 
 export const get_All_Timers = async () => {
     try {

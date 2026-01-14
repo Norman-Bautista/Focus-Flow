@@ -24,7 +24,12 @@ api.interceptors.request.use((config) => {
 api.interceptors.response.use(
   (response) => response,
   (error) => {
-    console.error("api error:", error.response?.data || error.message);
+    console.error("api error:", {
+      message: error.message,
+      data: error.response?.data,
+      status: error.response?.status,
+      url: error.config?.url
+    });
     return Promise.reject(error);
   }
 );

@@ -28,12 +28,12 @@ jobs: #job definitions
         cache: 'npm'
         cache-dependency-path: backend/package-lock.json
     
-    - name: Install dependencies
+    - name: Install dependencies 
       run: |
         cd backend 
         npm ci
     
-    - name: Run tests with Jest
+    - name: Run tests with Jest 
       run: |
         cd backend
         npm test -- --ci --coverage
