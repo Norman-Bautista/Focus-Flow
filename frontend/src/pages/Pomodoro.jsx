@@ -1,53 +1,14 @@
 
-import { useReducer, useEffect, useState } from "react";
-import { pomodoroReducer, initialState } from "../hooks/Pomodoro.timers";
-import { TodoReducer } from "../hooks/TodoCrud.jsx";
 import { 
   Edit as EditIcon, 
 } from "@mui/icons-material";
 import CircularProgress from '@mui/material/CircularProgress';
-
 import { CirclePlus } from 'lucide-react';
 import PomodoroModal from "../shared/components/PomodoroModal.jsx"; 
 import TodoModal from "../shared/components/TodoModal.jsx";
 
-import {get_All_Tasks, get_Task, complete_Task,} from '../api/task.api.js';
 
 const Pomodoro = () => {
-  const [state, dispatch] = useReducer(pomodoroReducer, initialState);
-  const [todoState, todoDispatch] = useReducer(TodoReducer, { tasks: [], currentTask: null });
-  const [showModal, setShowModal] = useState(false); 
-  const [taskModal, setTaskModal] = useState(false);
-  const [isloading, setIsLoading] = useState(false);
-
-  useEffect(() => {
-    let timer;
-    if (state.isRunning && state.time > 0) {
-      timer = setInterval(() => {
-        dispatch({ type: "TICK" });
-      }, 1000);
-    }
-    return () => clearInterval(timer);
-  }, [state.isRunning, state.time]);
-
-
-  const fetchTasks = async () => {
-    setIsLoading (true); 
-    try {
-      const tasks = await get_All_Tasks();
-      todoDispatch({ type: "G", payload: tasks });
-    } catch (error) {
-      console.error("Error fetching tasks:", error);
-    }
-  };
-
-  const handleCompleteTask = async (taskId) => {
-    try {
-      const updatedTask = await complete_Task(taskId);
-      todoDispatch({ type: "COMPLETE_TASK", payload: updatedTask });
-    } catch (error) {
-      console.error("Error completing task:", error);
-    } 
 
 
   return (
@@ -79,7 +40,7 @@ const Pomodoro = () => {
               </h1>
               <button
                 className="cursor-pointer"
-                onClick={() => setShowModal(true)} // ✅ open modal
+                onClick={() => setShowModal(true)} 
               >
                 <EditIcon />
               </button>
@@ -88,8 +49,7 @@ const Pomodoro = () => {
             {/* Timer */}
             <div className="mx-16 p-12 flex justify-center font-sans font-bold text-xxl">
               <span>
-                {Math.floor(state.time / 60)}:
-                {String(state.time % 60).padStart(2, "0")}
+                {formatTimer(timerState.time)}
               </span>
             </div>
 

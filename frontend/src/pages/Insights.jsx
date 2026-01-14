@@ -23,7 +23,7 @@ const Insights = () => {
   return (
     <main>
       {/* Grid: 12 cols, auto rows */}
-      <div className="grid grid-cols-12 auto-rows-auto gap-4">
+      <div className="grid grid-cols-12 auto-rows-auto gap-4 ">
   
         {/* 📊 Monthly Focus Snapshot (magenta left top, spans 2 rows) */}
         <div className="col-span-8 row-span-1">
