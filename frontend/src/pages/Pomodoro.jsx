@@ -10,7 +10,6 @@ import TodoModal from "../shared/components/TodoModal.jsx";
 
 const Pomodoro = () => {
 
-
   return (
       <div className="flex flex-col lg:flex-row gap-6 w-full relative">
       
@@ -114,6 +113,4 @@ const Pomodoro = () => {
         )}
       </div>
     );
-  };
-};
-export default Pomodoro;
+  }; export default Pomodoro;

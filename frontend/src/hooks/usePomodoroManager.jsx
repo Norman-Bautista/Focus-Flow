@@ -39,7 +39,7 @@ const usePomodoroManager = () => {
         timerDispatch({ type: "UPDATE_SETTINGS", payload: settings });
     }, []);
 
-    
+
 
     const currentCycle = Math.floor(timerState.completedSessions / timerState.cyclesBeforeLongBreak) + 1;
 
