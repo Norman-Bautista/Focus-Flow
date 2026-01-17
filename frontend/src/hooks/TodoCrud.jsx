@@ -15,13 +15,6 @@ export function TodoReducer(state, action) {
           task.id === action.payload.id ? action.payload : task
         ),
       };
-    case "COMPLETE_TASK":
-      return {
-        ...state,
-        tasks: state.tasks.map((task) =>
-          task.id === action.payload.id ? { ...task, completed: true } : task
-        ),
-      };
     case "DELETE_TASK":
       return {
         ...state,

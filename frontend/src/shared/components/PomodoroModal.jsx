@@ -1,6 +1,10 @@
 import React, { useState } from "react";
+import Button from "./Button";
+import { update_Timer_Values } from '../../api/pomodoro.api.js';
+
 
 const PomodoroModal = ({ onClose, dispatch, currentSettings }) => {
+  
   const [form, setForm] = useState({
     work: currentSettings.work,
     shortBreak: currentSettings.shortBreak,
@@ -13,23 +17,22 @@ const PomodoroModal = ({ onClose, dispatch, currentSettings }) => {
     setForm({ ...form, [name]: Number(value) });
   };
 
-  const handleSave = () => {
-    dispatch({
-      type: "UPDATE_SETTINGS",
-      payload: {
-        workDuration: form.work * 60,
-        shortBreak: form.shortBreak * 60,
-        longBreak: form.longBreak * 60,
-        cyclesBeforeLongBreak: form.cycles,
-      },
-    });
-    onClose();
+  const handleSave = async () => {
+    try {
+      await update_Timer_Values(form);
+      dispatch({ type: "UPDATE_SETTINGS", payload: form });
+      onClose();
+    } catch (error) {
+      console.error("Error updating pomodoro settings:", error);
+      alert("Failed to update settings. Please try again.");
+    }
+  
   };
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
+    <div className="fixed inset-0 bg-black/75 flex justify-center items-center z-50">
       <div className="bg-white rounded-2xl shadow-lg p-8 w-full max-w-md">
-        <h2 className="text-lg font-bold mb-4 text-gray-800">
+        <h2 className="text-lg font-bold mb-4 text-primary">
           Customize Pomodoro Settings
         </h2>
 
@@ -84,18 +87,12 @@ const PomodoroModal = ({ onClose, dispatch, currentSettings }) => {
         </div>
 
         <div className="flex justify-end gap-4 mt-6">
-          <button
-            onClick={onClose}
-            className="px-4 py-2 rounded bg-gray-200 hover:bg-gray-300"
-          >
+          <Button className="mt-4 bg-secondary outline-primary outline-1 text-primary px-4 py-2 rounded cursor-pointer" onClick={onClose}>
             Cancel
-          </button>
-          <button
-            onClick={handleSave}
-            className="px-4 py-2 rounded bg-primary text-white hover:bg-opacity-90"
-          >
+          </Button>
+          <Button className="mt-4 bg-primary text-white px-4 py-2 rounded cursor-pointer" onClick={handleSave}>
             Save
-          </button>
+          </Button>
         </div>
       </div>
     </div>
