@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import Button from "./Button";
 import { update_Timer_Values } from '../../api/pomodoro.api.js';
 
-
 const PomodoroModal = ({ onClose, dispatch, currentSettings }) => {
   
   const [form, setForm] = useState({
@@ -17,11 +16,10 @@ const PomodoroModal = ({ onClose, dispatch, currentSettings }) => {
     setForm({ ...form, [name]: Number(value) });
   };
 
-  const handleSave = async () => {
+  const handleUpdate = async () => {
     try {
       await update_Timer_Values(form);
-      dispatch({ type: "UPDATE_SETTINGS", payload: form });
-      onClose();
+
     } catch (error) {
       console.error("Error updating pomodoro settings:", error);
       alert("Failed to update settings. Please try again.");

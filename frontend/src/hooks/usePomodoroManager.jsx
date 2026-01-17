@@ -6,13 +6,13 @@ const usePomodoroManager = () => {
     const [timerState, timerDispatch] = useReducer(pomodoroReducer, initialState);
    
     const [showModal, setShowModal] = useState(false); 
-    const [isloading, setIsLoading] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
 
     useEffect(() => {
         let timer;
         if (timerState.isRunning && timerState.time > 0) {
           timer = setInterval(() => {
-            dispatch({ type: "TICK" });
+            timerDispatch({ type: "TICK" });
           }, 1000);
         }
         return () => clearInterval(timer);
@@ -35,20 +35,22 @@ const usePomodoroManager = () => {
         timerDispatch({ type: "START_BREAK", payload: { isLongBreak } });
     }, []);
 
-    const updateSettings = useCallback((settings) => {
-        timerDispatch({ type: "UPDATE_SETTINGS", payload: settings });
-    }, []);
-
-
-
-    const currentCycle = Math.floor(timerState.completedSessions / timerState.cyclesBeforeLongBreak) + 1;
-
     return {
+        // Timer state and actions
+        timerState,
+        startTimer,
+        pauseTimer,
+        resetTimer,
+        startBreak,
+        
+        // Modal state and actions
         showModal,
         setShowModal,
-        isloading,
-        setIsLoading,
-    }
+        
+        // Loading state
+        isLoading,
+        setIsLoading
+    };
 }
 
 export default usePomodoroManager

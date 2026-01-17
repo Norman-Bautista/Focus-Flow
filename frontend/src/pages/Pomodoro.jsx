@@ -4,15 +4,28 @@ import {
 } from "@mui/icons-material";
 import CircularProgress from '@mui/material/CircularProgress';
 import { CirclePlus } from 'lucide-react';
+import usePomodoroManager from "../hooks/usePomodoroManager.jsx";
 import PomodoroModal from "../shared/components/PomodoroModal.jsx"; 
 import TodoModal from "../shared/components/TodoModal.jsx";
 
 
 const Pomodoro = () => {
 
+  const {
+        timerState,
+        startTimer,
+        pauseTimer,
+        resetTimer,
+        startBreak,
+        showModal,
+        setShowModal,
+        isLoading
+    } = usePomodoroManager();
+
   return (
       <div className="flex flex-col lg:flex-row gap-6 w-full relative">
-      
+        {isLoading && <div className="loading"><CircularProgress/></div>}
+
         {/* Task List */}
         <div className="flex-1 flex justify-start items-center">
           <div className="container m-auto p-4 border-3 border-shadow bg-secondary rounded-2xl w-78 mt-24"> 
@@ -55,25 +68,25 @@ const Pomodoro = () => {
             {/* Buttons */}
             <div className="flex justify-center gap-8 p-4">
               <button
-                onClick={() => dispatch({ type: "START" })}
+                onClick={startTimer}
                 className="px-4 py-2 bg-shadow text-white rounded font-medium cursor-pointer"
               >
                 Start
               </button>
               <button
-                onClick={() => dispatch({ type: "PAUSE" })}
+                onClick={pauseTimer}
                 className="px-4 py-2 bg-shadow text-white rounded font-medium cursor-pointer"
               >
                 Pause
               </button>
               <button
-                onClick={() => dispatch({ type: "REST" })}
+                onClick={startBreak}
                 className="px-4 py-2 bg-shadow text-white rounded font-medium cursor-pointer"
               >
                 Rest
               </button>
               <button
-                onClick={() => dispatch({ type: "RESET" })}
+                onClick={resetTimer}
                 className="px-4 py-2 bg-shadow text-white rounded font-medium cursor-pointer"
               >
                 Reset
