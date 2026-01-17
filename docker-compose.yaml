@@ -17,11 +17,14 @@ services:
       - "5000:5000"
     depends_on:
       - mongo
+    dns:
+      - 8.8.8.8
+      - 8.8.4.4
 
   client:
     build: ./frontend
     env_file:
-      - ./frontend/.env  # Single file
+      - ./frontend/.env  
     ports:
       - "5173:5173"
     volumes:
